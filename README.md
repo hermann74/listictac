@@ -1,6 +1,5 @@
-# listictac
-=========================
-tchat client : Listictac=
+
+tchat client : Listictac
 =========================
 
 requirements : 
