@@ -6,6 +6,7 @@ requirements :
 pygame
 python3
 
-launch server2.py with a specified free port (>1080) known by each client
-launch client2.py with the ip adress of server2 and port
+launch client2.py  : get server2 by  ip adress and port.already initialise by default
+
+launch server2.py : you can customize  with a specified free port (>1080) 
 
