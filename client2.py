@@ -67,8 +67,8 @@ top.resizable(True, True)
 top.protocol("WM_DELETE_WINDOW", on_closing)
 
 #----Now comes the sockets part----
-HOST = 'localhost'  # input('Enter host: ')
-PORT = 1503 # input('Enter port: ')
+HOST = '192.168.168.117' # input('Enter host: ')
+PORT =  1552 # input('Enter port: ')
 if not PORT:
     PORT = 33000
 else:
