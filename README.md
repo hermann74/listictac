@@ -3,10 +3,13 @@ tchat client : Listictac
 =========================
 
 requirements : 
-pygame
-python3
+ * python3
 
-launch client2.py  : get server2 by  ip adress and port.already initialise by default
+python3 client2.py  :     
+ * ip adress and port of server 2 already set up 
+ * you can  specify them in code  
 
-launch server2.py : you can customize  with a specified free port (>1080) 
+python3 server2.py :  
+* intial port 1552 
+* you can customize  with a specified free port (>1080) 
 
