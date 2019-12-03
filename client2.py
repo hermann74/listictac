@@ -3,23 +3,24 @@
 from socket import AF_INET, socket, SOCK_STREAM
 from threading import Thread
 import tkinter
-import pygame
+# import pygame
 import time
 
 
 def receive():
-    bipfile = '/home/hcourtei/OtherPythonFiles/Tchat/clochette.wav'
-    pygame.mixer.init()
+    bipfile = './clochette.wav'
+    # pygame.mixer.init()
     """Handles receiving of messages."""
     while True:
         try:
             msg = client_socket.recv(BUFSIZ).decode("utf8")
             msg_list.insert(tkinter.END, msg)
-            v = vol.get()
-            pygame.mixer.music.set_volume(float(v)/10) # Met le volume à 0.5 (moitié)
-            pygame.mixer.music.load(bipfile)
-            pygame.mixer.music.play()
-            time.sleep(1)
+            # v = vol.get() volume only with pygame mixer
+            top.bell()
+            # pygame.mixer.music.set_volume(float(v)/10) # Met le volume à 0.5 (moitié)
+            # pygame.mixer.music.load(bipfile)
+            # pygame.mixer.music.play()
+            # time.sleep(1)
 
         except OSError:  # Possibly client has left the chat.
             break
@@ -40,7 +41,7 @@ def on_closing(event=None):
     my_msg.set("{quit}")
     send()
 
-
+global top
 top = tkinter.Tk()
 top.geometry("500x500")
 top.title("Listic net")
@@ -55,7 +56,6 @@ scrollbar = tkinter.Scrollbar(messages_frame)  # To navigate through past messag
 msg_list = tkinter.Listbox(messages_frame, yscrollcommand=scrollbar.set) #  height=15, width=50
 msg_list.pack(side=tkinter.LEFT, fill=tkinter.BOTH, expand=1)
 scrollbar.pack(side=tkinter.RIGHT, fill=tkinter.Y)
-
 messages_frame.pack(fill=tkinter.BOTH, expand=1)
 
 entry_field = tkinter.Entry(top, textvariable=my_msg)
@@ -65,10 +65,9 @@ send_button = tkinter.Button(top, text="Send", command=send)
 send_button.pack()
 top.resizable(True, True)
 top.protocol("WM_DELETE_WINDOW", on_closing)
-
 #----Now comes the sockets part----
-HOST = 'localhost'  # input('Enter host: ')
-PORT = 1503 # input('Enter port: ')
+HOST =  input('Enter host: ')
+PORT =  input('Enter port: ')
 if not PORT:
     PORT = 33000
 else:

@@ -45,8 +45,8 @@ def broadcast(msg, prefix=""):  # prefix is for name identification.
 clients = {}
 addresses = {}
 
-HOST = ''
-PORT = 1503
+HOST = '192.168.168.117'
+PORT = 1552
 BUFSIZ = 1024
 ADDR = (HOST, PORT)
 
@@ -60,3 +60,4 @@ if __name__ == "__main__":
     ACCEPT_THREAD.start()
     ACCEPT_THREAD.join()
     SERVER.close()
+    print('Server IP', HOST, ' port :' , PORT)
