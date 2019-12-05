@@ -3,25 +3,35 @@
 from socket import AF_INET, socket, SOCK_STREAM
 from threading import Thread
 import tkinter
-# import pygame
 import time
+
+
+global py
+try:
+    import pygame
+    py=True
+except:
+    print('WARNING, could not load pygame, so system.sound with no adjusment will be use')
+    py=False
 
 
 def receive():
     bipfile = './clochette.wav'
-    # pygame.mixer.init()
+    if py :
+         pygame.mixer.init()
     """Handles receiving of messages."""
     while True:
         try:
             msg = client_socket.recv(BUFSIZ).decode("utf8")
             msg_list.insert(tkinter.END, msg)
-            # v = vol.get() volume only with pygame mixer
-            top.bell()
-            # pygame.mixer.music.set_volume(float(v)/10) # Met le volume à 0.5 (moitié)
-            # pygame.mixer.music.load(bipfile)
-            # pygame.mixer.music.play()
-            # time.sleep(1)
-
+            if py :
+                 v = vol.get() # volume only with pygame mixer
+                 pygame.mixer.music.set_volume(float(v)/10) # Met le volume à 0.5 (moitié)
+                 pygame.mixer.music.load(bipfile)
+                 pygame.mixer.music.play()
+                 time.sleep(1)
+            else:
+                 top.bell()
         except OSError:  # Possibly client has left the chat.
             break
 
@@ -43,17 +53,19 @@ def on_closing(event=None):
 
 global top
 top = tkinter.Tk()
-top.geometry("500x500")
+top.geometry("700x500")
 top.title("Listic net")
 
 messages_frame = tkinter.Frame(top)
 my_msg = tkinter.StringVar()  # For the messages to be sent.
 my_msg.set("Here...")
-vol = tkinter.Scale(top, from_=0, to=10)
-vol.pack(side=tkinter.LEFT, fill=tkinter.Y)
+if py :
+    vol = tkinter.Scale(top, from_=0, to=10)
+    vol.pack(side=tkinter.LEFT, fill=tkinter.Y)
+
 scrollbar = tkinter.Scrollbar(messages_frame)  # To navigate through past messages.
 # Following will contain the messages.
-msg_list = tkinter.Listbox(messages_frame, yscrollcommand=scrollbar.set) #  height=15, width=50
+msg_list = tkinter.Listbox(messages_frame, yscrollcommand=scrollbar.set,font=('Fixed', 12)) #  height=15, width=50
 msg_list.pack(side=tkinter.LEFT, fill=tkinter.BOTH, expand=1)
 scrollbar.pack(side=tkinter.RIGHT, fill=tkinter.Y)
 messages_frame.pack(fill=tkinter.BOTH, expand=1)
